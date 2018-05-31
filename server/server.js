@@ -21,20 +21,31 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=>{
     console.log('new User connected');
 
+    socket.emit('newMessage', {
+        from: 'Admin',
+        text: 'Welcome to chatroom',
+        createdAt: new Date().getTime()
+    });
+
+    socket.broadcast.emit('newMessage',{
+        from: 'Admin',
+        text: 'new User joined',
+        createdAt: new Date().getTime()
+    })
+
     socket.on('createMessage', (message)=>{
         console.log('createMessage', message);
-        io.emit('newMessage', {
+        // io.emit('newMessage', {
+        //     from: message.from,
+        //     text: message.text,
+        //     createdAt: new Date().getTime()
+        // })
+        socket.broadcast.emit('newMessage',{
             from: message.from,
             text: message.text,
             createdAt: new Date().getTime()
         })
     })
-
-
-
-    socket.on('createEmail',(newEmail)=>{
-        console.log('createEmail', newEmail);
-    });
 
     socket.on('disconnect',()=>{
         console.log('User disconnected from server');

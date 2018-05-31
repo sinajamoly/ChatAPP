@@ -8,4 +8,9 @@ socket.on('disconnect',function(){
 
 socket.on('newMessage',function(message){
     console.log('newMessage',message);
+});
+
+
+socket.on('newUserNotif',function (message){
+    console.log('message', message);
 })
