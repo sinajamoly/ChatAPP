@@ -19,12 +19,14 @@ class Users{
             this.users = this.users.filter((user)=>{
                 return user.id !== id
             })
+            console.log('removed')
         }
         return user;
     }
 
     getUser(id) {
         var user = this.users.filter((user) => user.id === id)[0];
+        return user;
     }
 
     getUserList(room){
